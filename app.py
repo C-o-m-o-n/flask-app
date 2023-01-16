@@ -6,8 +6,10 @@ from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 import secrets
 import os
+from time import  localtime, strftime
 from sqlalchemy import MetaData
 from flask_migrate import Migrate
+from flask_socketio import SocketIO, send, emit, join_room, leave_room
 
 #initialise Flask
 app = Flask(__name__)
@@ -16,10 +18,11 @@ app.config['SECRET_KEY']='sqlite:///database'
 
 #for user session
 app.permanent_session_lifetime = timedelta(minutes=10)
+#for socketio(chats)
+socketio = SocketIO(app)
+ROOMS = ["Lounge", "News", "Gamming", "Code"]
 
 #initialise SQLAlchemy with Flask
-
-
 convention = {
     "ix": 'ix_%(column_0_label)s',
     "uq": "uq_%(table_name)s_%(column_0_name)s",
@@ -278,6 +281,29 @@ with app.app_context():
         flash('user created successfully','success')
         return redirect(url_for('index'))
     return render_template('signup.html')
+  
+  #the chat page
+  #events handles
+  @socketio.on('message')
+  def message(data):
+    print(f'\n{data}\n')
+    send({'msg':data['msg'], 'username': data['username'],'time_stamp': strftime('%b-%d-%Y-- %H:%M-%p', localtime())}, room=data['room'])#sends the message to event called message
+  # joining rooms 
+  @socketio.on('join')
+  def join(data):
+    join_room(data['room'])
+    send({'msg': data['username'] + 'has joined the '+ data['room']+ 'room.'}, room=data['room'])
+  
+  #leaving rooms
+  @socketio.on('leave')
+  def leave(data):
+    leave_room(data['room'])
+    send({'msg': data['username'] + 'has left the '+ data['room']+ 'room.'}, room=data['room'])
+      
+  @app.route('/chat')
+  def chat():
+    return render_template("chat.html", username=current_user.username, rooms=ROOMS )
+    
     #logout
   @app.route('/logout')
   @login_required
@@ -288,4 +314,4 @@ with app.app_context():
   
   #run the Flask app
   if __name__ == "__main__":
-    app.run(debug=True)
+    socketio.run(app, debug=True)

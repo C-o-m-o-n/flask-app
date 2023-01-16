@@ -5,7 +5,6 @@
   <body class="bg-gradient-primary">
 
     <div class="container">
-
       <!-- Outer Row -->
       <div class="row justify-content-center">
 
@@ -19,6 +18,26 @@
                 <div class="col-lg-6">
                   <div class="p-5">
                     <div class="text-center">
+                        <div>
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <ul>
+      {% for category, message in messages %}
+      {% if category == 'error'%}
+      <div class="alert-danger alert-dismissible fade show" role="alert"></div>
+        <li style="list-style:none;">{{ message }}</li>
+        {% elif category == 'info' %}
+        <div class="alert-info alert-dismissible fade show" role="alert"></div>
+          <li style="list-style:none;">{{ message }}</li>
+          {% else %}
+          <div class="alert-success alert-dismissible fade show" role="alert">
+            <li style="list-style:none;">{{ message }}</li></div>
+          {% endif %}
+          {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+      </div>
                       <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                     </div>
                     <form class="user" action="{{ url_for('login')}}" method="POST">
@@ -73,7 +92,4 @@
 
                         {% endblock content%}
                         <!-- Footer-->
-                        {% block footer%}
-                        {%include 'footer.html'%}
-                        {% endblock footer%}
                         </body>

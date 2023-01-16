@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.4/socket.io.js"></script>
+  <title>Triollec</title>
+</head>
+<body>
+  <!--   navigation bar -->
+  <nav>
+
+  </nav>
+  <!--   main -->
+  <div id="main-section">
+    <!--   sidebar -->
+    <nav id="sidebar">
+      <h4>ROOMS</h4>
+      {% for room in rooms %}
+       <p class="select-room">{{ room }}  </p> 
+      {% endfor %}
+    </nav>
+    <div id="right-pannel">
+      <div id="message-display">
+
+      </div>
+      <div id="input-section">
+        <input id="message-input" autocomplete="off" placeholder="type here" type="text">
+        <input id="message-button"type="button" value="SEND">
+      </div>
+    </div>
+  </div>
+  <!--   get username -->
+  <script type="text/javascript">
+    const username = ` {{ username|e }}`;
+  </script>
+  <!--   socketio  cdn-->
+  <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.4/socket.io.js"></script>
+  <!--   socktio file -->
+  <script src="{{ url_for('static', filename='js/scripts.js')}}"></script>
+</body>
+</html>
