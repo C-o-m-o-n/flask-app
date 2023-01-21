@@ -1,247 +1,273 @@
-  .hero {
-      padding: 6.25rem 0px !important;
-      margin: 0px !important;
+* {
+  margin: 0;
+  padding: 0;
+}
+    body{
+      height: 100%;
+      background: #7F7FD5;
+      background: -webkit-linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5);
+      background: linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5);
     }
-    .cardbox {
-      border-radius: 3px;
-      margin-bottom: 20px;
-      padding: 0px !important;
-    }
+      .active{
+        background-color: rgba(0,0,0,0.3)
+      }
+      ul li: hover{
+        background-color: rgba(0,0,2,0.3)
+      }
+p {
+  color: white;
+  border: 1px solid #efefef;
+  border-radius: 5px;
+  background-color: #efefef;
+  float: right;
+  margin: 3px;
+  padding: 2px;
+}
 
-    /* ------------------------------- */
-    /* Cardbox Heading
----------------------------------- */
-    .cardbox .cardbox-heading {
-      padding: 16px;
-      margin: 0;
+    .chat {
+      margin-top: auto;
+      margin-bottom: auto;
     }
-    .cardbox .btn-flat.btn-flat-icon {
-      border-radius: 50%;
-      font-size: 24px;
-      height: 32px;
-      width: 32px;
-      padding: 0;
-      overflow: hidden;
-      color: #fff !important;
-      background: #b5b6b6;
-
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
+    .card {
+      height: 500px;
+      border-radius: 15px !important;
+      background-color: rgba(0,0,0,0.4) !important;
     }
-    .cardbox .float-right .dropdown-menu {
-      position: relative;
-      left: 13px !important;
-    }
-    .cardbox .float-right a:hover {
-      background: #f4f4f4 !important;
-    }
-    .cardbox .float-right a.dropdown-item {
-      display: block;
-      width: 100%;
-      padding: 4px 0px 4px 10px;
-      clear: both;
-      font-weight: 400;
-      font-family: 'Abhaya Libre', serif;
-      font-size: 14px !important;
-      color: #848484;
-      text-align: inherit;
+    .contacts_body {
+      padding: 0.75rem 0 !important;
+      overflow-y: auto;
       white-space: nowrap;
-      background: 0 0;
-      border: 0;
     }
-
-    /* ------------------------------- */
-    /* Media Section
----------------------------------- */
-    .media {
-      display: -ms-flexbox;
-      display: flex;
-      -ms-flex-align: start;
-      align-items: flex-start;
+    .msg_card_body {
+      overflow-y: auto;
     }
-    .d-flex {
-      display: -ms-flexbox !important;
-      display: flex !important;
+    .card-header {
+      border-radius: 15px 15px 0 0 !important;
+      border-bottom: 0 !important;
     }
-    .media .mr-3 {
-      margin-right: 1rem !important;
+    .card-footer {
+      border-radius: 0 0 15px 15px !important;
+      border-top: 0 !important;
     }
-    .media img {
-      width: 48px !important;
-      height: 48px !important;
-      padding: 2px;
-      border: 2px solid #f4f4f4;
-    }
-    .media-body {
-      -ms-flex: 1;
-      flex: 1;
-      padding: .4rem !important;
-    }
-    .media-body p {
-      font-family: 'Rokkitt', serif;
-      font-weight: 500 !important;
-      font-size: 14px;
-      color: #88898a;
-    }
-    .media-body small span {
-      font-family: 'Rokkitt', serif;
-      font-size: 12px;
-      color: #aaa;
-      margin-right: 10px;
-    }
-
-
-    /* ------------------------------- */
-    /* Cardbox Item
----------------------------------- */
-    .cardbox .cardbox-item {
-      position: relative;
-      display: block;
-    }
-    .cardbox .cardbox-item img {}
-    .img-responsive {
-      display: block;
-      max-width: 100%;
-      height: auto;
-    }
-    .fw {
-      width: 100% !important;
-      height: auto;
-    }
-
-
-    /* ------------------------------- */
-    /* Cardbox Base
----------------------------------- */
-    .cardbox-base {
-      border-bottom: 2px solid #f4f4f4;
-    }
-    .cardbox-base ul {
-      margin: 10px 0px 10px 15px!important;
-      padding: 10px !important;
-      font-size: 0px;
-      display: inline-block;
-    }
-    .cardbox-base li {
-      list-style: none;
-      margin: 0px 0px 0px -8px !important;
-      padding: 0px 0px 0px 0px !important;
-      display: inline-block;
-    }
-
-    .cardbox-base li a {
-      margin: 0px !important;
-      padding: 0px !important;
-    }
-    .cardbox-base li a i {
-      position: relative;
-      top: 4px;
-      font-size: 16px;
-      color: #8d8d8d;
-      margin-right: 15px;
-    }
-    .cardbox-base li a span {
-      font-family: 'Rokkitt', serif;
-      font-size: 14px;
-      color: #8d8d8d;
-      margin-left: 20px;
-      position: relative;
-      top: 5px;
-    }
-    .cardbox-base li a em {
-      font-family: 'Rokkitt', serif;
-      font-size: 14px;
-      color: #8d8d8d;
-      position: relative;
-      top: 3px;
-    }
-    .cardbox-base li a img {
-      width: 25px;
-      height: 25px;
-      margin: 0px !important;
-      border: 2px solid #fff;
-    }
-
-
-    /* ------------------------------- */
-    /* Cardbox Comments
----------------------------------- */
-    .cardbox-comments {
-      padding: 10px 40px 20px 40px !important;
-      font-size: 0px;
-      text-align: center;
-      display: inline-block;
-    }
-    .cardbox-comments .comment-avatar img {
-      margin-top: 1px;
-      margin-right: 10px;
-      position: relative;
-      display: inline-block;
-      text-align: center;
-      width: 40px;
-      height: 40px;
-    }
-    .cardbox-comments .comment-body {
-      overflow: auto;
-    }
+    
     .search {
+      border-radius: 15px 0 0 15px !important;
+      background-color: rgba(0,0,0,0.3) !important;
+      border: 0 !important;
+      color: white !important;
+    }
+    .search:focus {
+      box-shadow: none !important;
+      outline: 0px !important;
+    }
+    .type_msg {
+      background-color: rgba(0,0,0,0.3) !important;
+      border: 0 !important;
+      color: white !important;
+      height: 60px !important;
+      overflow-y: auto;
+    }
+    .type_msg:focus {
+      box-shadow: none !important;
+      outline: 0px !important;
+    }
+    .attach_btn {
+      border-radius: 15px 0 0 15px !important;
+      background-color: rgba(0,0,0,0.3) !important;
+      border: 0 !important;
+      color: white !important;
+      cursor: pointer;
+    }
+    .send_btn {
+      border-radius: 0 15px 15px 0 !important;
+      background-color: rgba(0,0,0,0.3) !important;
+      border: 0 !important;
+      color: white !important;
+      cursor: pointer;
+    }
+    .search_btn {
+      border-radius: 0 15px 15px 0 !important;
+      background-color: rgba(0,0,0,0.3) !important;
+      border: 0 !important;
+      color: white !important;
+      cursor: pointer;
+    }
+    .contacts {
+      list-style: none;
+      padding: 0;
+    }
+    .contacts li {
+      width: 100% !important;
+      padding: 5px 10px;
+      margin-bottom: 15px !important;
+    }
+    .active {
+      background-color: rgba(0,0,0,0.3);
+    }
+    .user_img {
+      height: 70px;
+      width: 70px;
+      border: 1.5px solid #f5f6fa;
+
+    }
+    .user_img_msg {
+      height: 40px;
+      width: 40px;
+      border: 1.5px solid #f5f6fa;
+
+    }
+    .img_cont {
       position: relative;
-      right: -60px;
-      top: -40px;
-      margin-bottom: -40px;
-      border: 2px solid #f4f4f4;
-      width: 100%;
-      overflow: hidden;
+      height: 70px;
+      width: 70px;
     }
-    .search input[type="text"] {
-      background-color: #fff;
-      line-height: 10px;
-      padding: 15px 60px 20px 10px;
-      border: none;
-      border-radius: 4px;
-      width: 350px;
-      font-family: 'Rokkitt', serif;
-      font-size: 14px;
-      color: #8d8d8d;
-      height: inherit;
-      font-weight: 700;
+    .img_cont_msg {
+      height: 40px;
+      width: 40px;
     }
-    .search button {
+    .online_icon {
+      position: absolute;
+      height: 15px;
+      width: 15px;
+      background-color: #4cd137;
+      border-radius: 50%;
+      bottom: 0.2em;
+      right: 0.4em;
+      border: 1.5px solid white;
+    }
+    .offline {
+      background-color: #c23616 !important;
+    }
+    .user_info {
+      margin-top: auto;
+      margin-bottom: auto;
+      margin-left: 15px;
+    }
+    .user_info span {
+      font-size: 20px;
+      color: white;
+    }
+    .user_info h5 {
+      font-size: 20px;
+      color: rgba(100,25,255,0.6);
+    }
+    .video_cam {
+      margin-left: 50px;
+      margin-top: 5px;
+    }
+    .video_cam span {
+      color: white;
+      font-size: 20px;
+      cursor: pointer;
+      margin-right: 20px;
+    }
+    .msg_cotainer {
+      margin-top: auto;
+      margin-bottom: auto;
+      margin-left: 10px;
+      border-radius: 25px;
+      background-color: #82ccdd;
+      padding: 10px;
+      position: relative;
+    }
+    .msg_cotainer_send {
+      margin-top: auto;
+      margin-bottom: auto;
+      margin-right: 10px;
+      border-radius: 25px;
+      background-color: #78e08f;
+      padding: 10px;
+      position: relative;
+    }
+    .msg_time {
+      position: absolute;
+      left: 0;
+      bottom: -15px;
+      color: rgba(255,255,255,0.5);
+      font-size: 10px;
+    }
+    .msg_time_send {
       position: absolute;
       right: 0;
-      top: 0px;
-      border: none;
-      background-color: transparent;
-      color: #bbbbbb;
-      padding: 15px 25px;
+      bottom: -15px;
+      color: rgba(255,255,255,0.5);
+      font-size: 10px;
+    }
+    .msg_head {
+      position: relative;
+    }
+    #action_menu_btn {
+      position: absolute;
+      right: 20px;
+      top: 20px;
+      background-color: rgba(255,255,255,0.5);
       cursor: pointer;
-
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-    }
-    .search button i {
       font-size: 20px;
-      line-height: 30px;
-      display: block;
     }
-
-
-    /* ------------------------------- */
-    /* Author
----------------------------------- */
-    .author a {
-      font-family: 'Rokkitt', serif;
-      font-size: 16px;
-      color: #00C4CF;
+    .action_menu {
+      z-index: 1;
+      position: absolute;
+      padding: 15px 0;
+      background-color: rgba(0,0,0,0.5);
+      color: white;
+      border-radius: 15px;
+      top: 30px;
+      right: 15px;
+      display: none;
     }
-    .author p {
-      font-family: 'Rokkitt', serif;
-      font-size: 16px;
-      color: #8d8d8d;
+    .action_menu ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .action_menu ul li {
+      width: 100%;
+      padding: 10px 15px;
+      margin-bottom: 5px;
+    }
+    .action_menu ul li i {
+      padding-right: 10px;
+
+    }
+    .action_menu ul li:hover {
+      cursor: pointer;
+      background-color: rgba(0,0,0,0.2);
+    }
+#message-display{
+  margin: 5px;
+  width: 100%;
+}
+
+#message-display p{
+  min-width: 50%;
+  
+  background-color: rgba(220,100,105,0.3) !important;
+  max-width: 95%;
+  color: white;
+  border: 0 !important;
+  border-radius: 20px;
+  /* border-bottom-right-radius: 70px;
+  border-right-style: ; */
+}
+#message-display span{
+  font-family: Sans-Serif;
+  font-weight: 300;
+  margin: 7px;
+  color: white;
+}
+#message-display small{
+  float:  right;
+  margin: 4px;
+  font-weight: 200;
+  color: grey;
+}
+    @media(max-width: 576px) {
+      body{
+        display: flex;
+      }
+      .contacts_card {
+        
+        margin-bottom: 5px !important;
+      }
+      
     }

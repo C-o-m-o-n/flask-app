@@ -287,22 +287,23 @@ with app.app_context():
   @socketio.on('message')
   def message(data):
     print(f'\n{data}\n')
-    send({'msg':data['msg'], 'username': data['username'],'time_stamp': strftime('%b-%d-%Y-- %H:%M-%p', localtime())}, room=data['room'])#sends the message to event called message
+    send({'msg':data['msg'], 'username': data['username'], 'profileImg': data['profileImg'], 'time_stamp': strftime('%b-%d-%Y-- %H:%M-%p', localtime())}, room=data['room'])#sends the message to event called message
   # joining rooms 
   @socketio.on('join')
   def join(data):
     join_room(data['room'])
-    send({'msg': data['username'] + 'has joined the '+ data['room']+ 'room.'}, room=data['room'])
+    send({'msg': data['username'] + '  has joined the '+ data['room'] + ' ' + ' room.'}, room=data['room'])
   
   #leaving rooms
   @socketio.on('leave')
   def leave(data):
     leave_room(data['room'])
-    send({'msg': data['username'] + 'has left the '+ data['room']+ 'room.'}, room=data['room'])
+    send({'msg': data['username'] + '  has left the '+ data['room']+ '  room.'}, room=data['room'])
       
   @app.route('/chat')
   def chat():
-    return render_template("chat.html", username=current_user.username, rooms=ROOMS )
+    chat_sender = Users.query.filter_by(username=current_user.username).first()
+    return render_template("chat.html", username=current_user.username, rooms=ROOMS, chat_sender=chat_sender )
     
     #logout
   @app.route('/logout')
