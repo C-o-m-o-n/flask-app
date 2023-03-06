@@ -14,9 +14,9 @@ from flask_socketio import SocketIO, send, emit, join_room, leave_room
 #initialise Flask
 app = Flask(__name__)
 #old sqlite database
-#app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///database.db'
+app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///database.db'
 #new mysql database
-app.config['SQLALCHEMY_DATABASE_URI']='mysql+pymysql://sql12602468:z4AnnPfwwg@sql12.freesqldatabase.com/sql12602468'
+# app.config['SQLALCHEMY_DATABASE_URI']='mysql+pymysql://sql12602468:z4AnnPfwwg@sql12.freesqldatabase.com/sql12602468'
 
 app.config['SECRET_KEY']='sqlite:///database'
 
