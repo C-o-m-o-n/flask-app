@@ -7,28 +7,29 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Triollec</title>
-
+  <title>Comon</title>
+  <!-- Core theme CSS (includes Bootstrap)-->
+  <link href="{{ url_for('static', filename='assets/vendor/fontawesome-free/css/all.min.css' )}}" rel="stylesheet" type="text/css">
+      <!-- Bootstrap core JavaScript-->
+      <script src="{{ url_for('static', filename='assets/vendor/jquery/jquery.min.js') }}"></script>
+      <script src="{{ url_for('static', filename='assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+  <!-- Custom styles for this template-->
+  <link href="{{ url_for('static',filename='css/bootstrap.min.css') }}" rel="stylesheet">
+ <!-- Custom styles for this template-->
+  <link href="{{ url_for('static', filename='css/sb-admin-2.min.css')}}" rel="stylesheet">
   <!-- Font Awesome icons (free version)-->
   <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
   <!-- Core theme CSS (includes Bootstrap)-->
-  <link href="{{ url_for('static', filename='assets/vendor/fontawesome-free/css/all.min.css' )}}" rel="stylesheet" type="text/css">
-  <link
-  href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-  rel="stylesheet">
-  <!-- font icons -->
-  <link rel="stylesheet" href="{{ url_for('static', filename='assets/vendors/themify-icons/css/themify-icons.css')}}">
-
-  <!-- Custom styles for this template-->
-  <link href="{{ url_for('static',filename='css/bootstrap.min.css') }}" rel="stylesheet">
-
-  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <link href="static/assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <!------ Include the above in your HEAD tag ---------->
 
   <style>
     /*-- Media Section-- */
+    *{
+      margin: 0;
+      padding: 0;
+      
+    }
     .media {
       display: -ms-flexbox;
       display: flex;
@@ -61,7 +62,13 @@
     /* Cardbox Base
   ---------------------------------- */
     .cardbox-base {
+      position: fixed;
+      bottom: 0px;
+      width: 99%;
+      background-color: #efefef;
       border-bottom: 2px solid #f4f4f4;
+      border-bottom-left-radius: 5px;
+      border-bottom-right-radius: 5px;
     }
     .cardbox-base ul {
       margin: 10px 0px 10px 15px!important;
@@ -104,14 +111,16 @@
       border: 2px solid #fff;
     }
 
-
     /* ------------------------------- */
     /* Cardbox Comments
   ---------------------------------- */
     .cardbox-comments {
-      padding: 10px;
+      padding: 7px;
       font-size: 0px;
-      text-align: center;
+      background-color: #efefef;
+      margin: 0;
+      border-bottom-left-radius: 5px ;
+      border-bottom-right-radius: 5px ;
 
     }
     .cardbox-comments .comment-avatar img {
@@ -138,37 +147,59 @@
       height: inherit;
       font-weight: 700;
     }
-    .comments {
-      border: 1px solid black;
-      margin: 5px;
+    .post {
+      
+    }
+    .post-content{
+      border: 1px solid #efefef;
+      margin: 0;
+      height: auto;
       border-radius: 5px;
-      background-color: #e2e5e5c1;
+      background-color: #efefef;
+      
+    }
+    .comments {
+      border: 1px solid #efefef;
+      margin: 5px 0;
+      height: auto;
+      border-radius: 5px;
+      background-color: #efefef;
 
     }
     .coment-profile {
+      border-top-left-radius: 5px ;
+      border-top-right-radius: 5px ;
       display: flex;
       align-content: center;
-      background-color: #fcfeffa2;
-
+      background-color:#efefef;
+      width: auto;
+      height: auto;
+    }
+    .contain{
+      margin: 2px;
+      height: 100%;
+      background-color: #B1C6FF;
     }
   </style>
 
 </head>
-
+<body>
+  
 <!-- Begin post Content -->
-<div class="container-fluid">
+<div class="contain">
   <!-- Illustrations -->
-  <br>
-  <div style="border:1px solid red; border-radius:5px;">
-    <div style="background-color:#efefef;">
-      <div class="media m-0">
+  <div style=" border-radius:5px;">
+    <div style=" border-top-right-radius:5px; border-top-left-radius:5px; position:sticky; top:1px; background-color:#efefef;">
+      
+      
+      <div class="media m-0" style="overflow:hidden;">
         <div class="d-flex mr-3">
           <img class="img-profile rounded-circle"
           src="{{ url_for('static',filename='assets/profile_img/' + post.poster.profile_pic) }}" style="width:60px;">
         </a>
       </div>
       <div class="media-body">
-        <p class="m-0">
+        <p >
           {{ post.poster.username }}
         </p>
         <small><span><i class="icon ion-md-pin"></i> Nairobi, Kenya</span></small>
@@ -179,20 +210,56 @@
     <!--/ media -->
   </div>
 
-
+<div >
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    
+      {% for category, message in messages %}
+      {% if category == 'error'%}
+      <div class="alert alert-danger alert-dismissable fade show" role="alert">
+              {{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="close">
+              <span aria-hidden="true">x</span>
+            </button>
+          </div>
+        {% elif category == 'info' %}
+        <div class="alert alert-info alert-dismissable fade show" role="alert">
+              {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="close">
+              <span aria-hidden="true">x</span>
+            </button>
+          </div>
+          {% else %}
+          <div class="alert alert-success alert-dismissable fade show" role="alert">
+              {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="close">
+              <span aria-hidden="true">x</span>
+            </button>
+          </div>
+          {% endif %}
+          {% endfor %}
+        
+        {% endif %}
+        {% endwith %}
+      </div>
+      
 
   <div class="card-body">
     <div class="text-left">
-
+    <div class="post">
       {% if post.post_img %} <!-- post image -->
       <img class="img-fluid px-0 px-sm-1 mt-1 mb-4" style="border-radius:10px; margin:0; display: block; width: 100%;" src="{{ url_for('static',filename='assets/post_img/' + post.post_img) }}">
 
       {% endif %}
+      <div class="post-content">
+        
       <p style="">
         {{ post.content }}
       </p>
+      </div>
     </div>
-    <hr class="sidebar-divider">
+    </div>
+    <hr>
     {% for comment in comments %}
     {% if comment %}
     <div class="comments">
@@ -200,7 +267,7 @@
         <img class="img-profile rounded-circle"
         src="{{ url_for('static',filename='assets/profile_img/' + comment.comenter.profile_pic) }}" style="margin:10px;width:30px; height:30px;">
         <br>
-        <p style="margin:10px;text-decoration:underline;">
+        <p style="margin:10px;font-weight:500;">
           {{comment.comenter.username}}
         </p>
       </div>
@@ -215,6 +282,7 @@
   </div>
 
 
+  <!--/ cardbox-base -->
   <div class="cardbox-base">
     <ul>
       <li><a><i class="fas fa-thumbs-up"></i></a></li>
@@ -223,13 +291,8 @@
       {% endfor %}
       <li><a><span>{{ post.likes|length }} Likes</span></a></li>
     </ul>
-  </div>
-
-
-  <!--/ cardbox-base -->
-  <div style="display:flex; justify-content:space-between;"class="cardbox-comments -ms-flex">
-
-    <span class="comment-avatar float-left">
+  <div class="cardbox-comments">
+    <span class=" comment-avatar float-left">
       <img class="rounded-circle" src="{{ url_for('static',filename='assets/profile_img/' + current_user.profile_pic) }}">
     </span>
     <div class="search">
@@ -238,12 +301,13 @@
         <input style="margin:5px;" class="btn btn-primary" type="submit" value="comment">
       </form>
     </div>
-    <!--/. Search -->
   </div>
+  </div>
+  <br>
+    <!--/. cardbox-base -->
 </div>
 </div>
 
-</div>
 <!-- end of body content -->
 <!-- Bootstrap core JavaScript-->
 <script src="{{ url_for('static',filename=' assets/vendor/jquery/jquery.min.js') }}"></script>

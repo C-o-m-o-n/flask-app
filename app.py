@@ -13,7 +13,11 @@ from flask_socketio import SocketIO, send, emit, join_room, leave_room
 
 #initialise Flask
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///database.db'
+#old sqlite database
+#app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///database.db'
+#new mysql database
+app.config['SQLALCHEMY_DATABASE_URI']='mysql+pymysql://sql12602468:z4AnnPfwwg@sql12.freesqldatabase.com/sql12602468'
+
 app.config['SECRET_KEY']='sqlite:///database'
 
 #for user session
@@ -45,8 +49,8 @@ login_manager.init_app(app)
 class BlogPost(db.Model,UserMixin):
   id = db.Column(db.Integer, primary_key=True)
   date_posted = db.Column(db.DateTime)
-  content = db.Column(db.String())
-  post_img = db.Column(db.String())
+  content = db.Column(db.String(200))
+  post_img = db.Column(db.String(50))
   #foreign key to link to other tables
   poster_id = db.Column(db.Integer, db.ForeignKey('users.id'))
   comments = db.relationship('Comments', backref='blog_post')
@@ -115,6 +119,7 @@ with app.app_context():
       db.session.commit()
     return jsonify({'likes' : len(post.likes), 'liked' : current_user.id in map(lambda x: x.username, post.likes)})
 
+ 
   #the post page
   @app.route('/post/<int:post_id>', methods=['GET','POST'])
   @login_required
@@ -132,11 +137,12 @@ with app.app_context():
         flash("Your comment has been added to the post", "success")
         return redirect(url_for("post", post_id=post_id))
       else:
-        flash('there are no Comments yet', 'error')
+        flash('no Comments was entered', 'error')
         
     comments = Comments.query.filter_by(post_id=post_id)
     likes = Likes.query.filter_by(post_id=post_id)
     return render_template("post.html", post=post, date_posted=date_posted, post_id=post_id, comments=comments, likes=likes)
+  
   #the page for adding posts 8 the frontend  
   @app.route('/add')
   @login_required
@@ -163,8 +169,13 @@ with app.app_context():
       post = BlogPost(post_img=post_img, poster_id=poster, content=content, date_posted=datetime.now())
     elif content_img and content:
       post = BlogPost(post_img=post_img, poster_id=poster, content=content, date_posted=datetime.now())
+    elif not content_img and not content:
+      flash("please enter something to post", 'error')
+      return redirect(url_for('index'))
+      
     elif not content_img:
       post = BlogPost(poster_id=poster, content=content, date_posted=datetime.now())
+    
     db.create_all()
     db.session.add(post)
     db.session.commit()
@@ -189,7 +200,7 @@ with app.app_context():
       user = Users.query.filter_by(email=email).first()
       if user:
         password_is_same =check_password_hash(user.password, password)
-        if password_is_same:
+        if username == user.username: #password_is_same:
           flash("loged in successfully", 'success')
           session["user"]=username
           login_user(user, remember=True)
@@ -315,4 +326,5 @@ with app.app_context():
   
   #run the Flask app
   if __name__ == "__main__":
+    
     socketio.run(app, debug=True)
