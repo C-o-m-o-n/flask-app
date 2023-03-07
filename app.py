@@ -5,6 +5,7 @@ from datetime import datetime, timedelta
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 import secrets
+import random
 import os
 from time import  localtime, strftime
 from sqlalchemy import MetaData
@@ -14,9 +15,10 @@ from flask_socketio import SocketIO, send, emit, join_room, leave_room
 #initialise Flask
 app = Flask(__name__)
 #old sqlite database
-app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///database.db'
+#app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///database.db'
 #new mysql database
-# app.config['SQLALCHEMY_DATABASE_URI']='mysql+pymysql://sql12602468:z4AnnPfwwg@sql12.freesqldatabase.com/sql12602468'
+# mysql://root:T0vJWROg3RdqmKjgCbW8@containers-us-west-121.railway.app:6705/railway
+app.config['SQLALCHEMY_DATABASE_URI']='mysql+pymysql://root:iHUPZcoYYUQ96En6chw2@containers-us-west-55.railway.app:6549/railway'
 
 app.config['SECRET_KEY']='sqlite:///database'
 
@@ -44,26 +46,34 @@ login_manager = LoginManager()
 login_manager.login_view = 'login'
 login_manager.login_message_category = 'info'
 login_manager.init_app(app)
+#default Column id
+
+id_list =[]
+for i in range(1000000):
+  id_list.append(i)
+  uid = random.choice(id_list)
+  
 
 #define the BlogPost table
 class BlogPost(db.Model,UserMixin):
-  id = db.Column(db.Integer, primary_key=True)
+  id = db.Column(db.Integer, primary_key=True, default=uid)
   date_posted = db.Column(db.DateTime)
-  content = db.Column(db.String(200))
-  post_img = db.Column(db.String(50))
+  content = db.Column(db.String(256))
+  post_img = db.Column(db.String(100))
   #foreign key to link to other tables
   poster_id = db.Column(db.Integer, db.ForeignKey('users.id'))
   comments = db.relationship('Comments', backref='blog_post')
   likes = db.relationship('Likes', backref='post')
 
 #define the Users table
+
 class Users(db.Model,UserMixin):
-  id = db.Column(db.Integer, primary_key=True)
-  username = db.Column(db.String(50))
-  email = db.Column(db.String(50))
-  password = db.Column(db.String(50))
-  profile_pic = db.Column(db.String(50), default='user.png')
-  pic_file_path = db.Column(db.String(100))
+  id = db.Column(db.Integer, primary_key=True, default=uid)
+  username = db.Column(db.String(250))
+  email = db.Column(db.String(250))
+  password = db.Column(db.String(256))
+  profile_pic = db.Column(db.String(250), default='user.png')
+  pic_file_path = db.Column(db.String(256))
   # date_posted = db.Column(db.DateTime)
   #user can have many ppsts
   blog_post = db.relationship('BlogPost', backref='poster')
@@ -72,7 +82,7 @@ class Users(db.Model,UserMixin):
   
 # define comments table
 class Comments(db.Model, UserMixin):
-  id = db.Column(db.Integer, primary_key=True)
+  id = db.Column(db.Integer, primary_key=True, default=uid)
   username = db.Column(db.Integer, db.ForeignKey('users.id'))#represents the user
   content = db.Column(db.String(100))
   date_posted = db.Column(db.DateTime)
@@ -81,7 +91,7 @@ class Comments(db.Model, UserMixin):
 
 #define the Likes table
 class Likes(db.Model,UserMixin):
-  id = db.Column(db.Integer, primary_key=True)
+  id = db.Column(db.Integer, primary_key=True, default=uid)
   username = db.Column(db.Integer, db.ForeignKey('users.id'))#represents the user
   date_posted = db.Column(db.DateTime)
   #user can have many ppsts
@@ -190,7 +200,7 @@ with app.app_context():
   @app.route('/login', methods=['POST', 'GET'])
   def login():
     if current_user.is_authenticated:
-      flash("you are already loged in", 'error')
+      flash("you are already loged in", 'info')
       return redirect(url_for('index'))
     if request.method == 'POST':
       session.permanent = True
@@ -200,7 +210,7 @@ with app.app_context():
       user = Users.query.filter_by(email=email).first()
       if user:
         password_is_same =check_password_hash(user.password, password)
-        if username == user.username: #password_is_same:
+        if password_is_same:
           flash("loged in successfully", 'success')
           session["user"]=username
           login_user(user, remember=True)
@@ -233,7 +243,6 @@ with app.app_context():
         picture_file = save_pic(request.files['profile_pic'])
         current_user.profile_pic = picture_file
         
-      
       #get username and email from the form
       username = request.form['username']
       email = request.form['email']
@@ -249,7 +258,7 @@ with app.app_context():
         current_user.email = email
         db.session.commit()
         flash("your profile has been updated successfully", "success")
-        return redirect(url_for('user'))
+        return redirect(url_for('index'))
         
     if 'user' in session:
       user_session = session["user"]
@@ -315,7 +324,9 @@ with app.app_context():
   def chat():
     chat_sender = Users.query.filter_by(username=current_user.username).first()
     return render_template("chat.html", username=current_user.username, rooms=ROOMS, chat_sender=chat_sender )
-    
+  #end of chat page
+
+
     #logout
   @app.route('/logout')
   @login_required

@@ -30,8 +30,8 @@
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
         <a class="nav-link" href="{{ url_for('index') }}">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span></a>
+          <i class="fas fa-fw fa-home"></i>
+          <span>Home</span></a>
       </li>
 
       <!-- Divider -->
@@ -39,7 +39,7 @@
 
       <!-- Heading -->
       <div class="sidebar-heading">
-        Addons
+        Interface
       </div>
 
       <!-- Nav Item - Pages Collapse Menu -->
@@ -51,8 +51,10 @@
         </a>
         <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Login Screens:</h6>
+            <h6 class="collapse-header"> Pages:</h6>
             <a class="collapse-item" href="{{url_for('index')}}">Home</a>
+
+
             {% if current_user.is_authenticated %}
             <a class="collapse-item" href="{{url_for('user')}}">Profile</a>
             <a class="collapse-item" href="{{url_for('logout')}}">Logout</a>
@@ -60,12 +62,8 @@
             <a class="collapse-item" href="{{url_for('login')}}">Login</a>
             <a class="collapse-item" href="{{url_for('signup')}}">Register</a>
             {% endif %}
-            <a class="collapse-item" href="{{url_for('add')}}">Add Post</a>
             <div class="collapse-divider"></div>
-            <h6 class="collapse-header">Other Pages:</h6>
-            <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-            <a class="collapse-item" href="404.html">404 Page</a>
-            <a class="collapse-item" href="blank.html">Blank Page</a>
+            <h6 class="collapse-header">More coming soon:</h6>
           </div>
         </div>
       </li>
@@ -76,19 +74,23 @@
           <span>Chat</span></a>
       </li>
 
-      <!-- Nav Item - Tables -->
-      <li class="nav-item">
-        <a class="nav-link" href="tables.html">
-          <i class="fas fa-fw fa-table"></i>
-          <span>Tables</span></a>
-      </li>
       <!-- Heading -->
       <div class="sidebar-heading">
-        Interface
+        Addons
       </div>
 
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('Upgrade') }}">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Dashboard</span></a>
+          
+                <li class="nav-item">
+        <a class="nav-link" href="tables.html">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Tables</span></a>
+      </li>
+      
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
           aria-expanded="true" aria-controls="collapseTwo">
           <i class="fas fa-fw fa-cog"></i>
@@ -137,7 +139,7 @@
       </div>
       <!-- Sidebar Message -->
       <div class="sidebar-card d-none d-lg-flex">
-        <img class="sidebar-card-illustration mb-2" src="img/undraw_rocket.svg" alt="...">
+        <img class="sidebar-card-illustration mb-2" src="{{ url_for('static', filename='assets/img/undraw_rocket.svg') }}" alt="...">
         <p class="text-center mb-2">
           <strong>SB Admin Pro</strong> is packed with premium features, components, and more!
         </p>
@@ -274,7 +276,7 @@
                 </h6>
                 <a class="dropdown-item d-flex align-items-center" href="#">
                   <div class="dropdown-list-image mr-3">
-                    <img class="rounded-circle" src="img/undraw_profile_1.svg"
+                    <img class="rounded-circle" src="{{url_for('static',filename='assets/img/undraw_profile_1.svg') }}"
                     alt="...">
                     <div class="status-indicator bg-success"></div>
                   </div>
@@ -290,7 +292,7 @@
                 </a>
                 <a class="dropdown-item d-flex align-items-center" href="#">
                   <div class="dropdown-list-image mr-3">
-                    <img class="rounded-circle" src="img/undraw_profile_2.svg"
+                    <img class="rounded-circle" src="P{url_for('static', filename='img/undraw_profile_2.svg')}}"
                     alt="...">
                     <div class="status-indicator"></div>
                   </div>
@@ -306,7 +308,7 @@
                 </a>
                 <a class="dropdown-item d-flex align-items-center" href="#">
                   <div class="dropdown-list-image mr-3">
-                    <img class="rounded-circle" src="img/undraw_profile_3.svg"
+                    <img class="rounded-circle" src="{{url_for('static', filename='assets/img/undraw_profile_3.svg')}}"
                     alt="...">
                     <div class="status-indicator bg-warning"></div>
                   </div>
