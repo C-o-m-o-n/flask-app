@@ -302,6 +302,9 @@ with app.app_context():
         return redirect(url_for('index'))
     return render_template('signup.html')
   
+  @app.route('/upgrade')
+  def upgrade():
+    return render_template('upgrade.htnl')
   #the chat page
   #events handles
   @socketio.on('message')
