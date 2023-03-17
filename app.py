@@ -15,10 +15,10 @@ from flask_socketio import SocketIO, send, emit, join_room, leave_room
 #initialise Flask
 app = Flask(__name__)
 #old sqlite database
-#app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///database.db'
+app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///database.db'
 #new mysql database
 # mysql://root:T0vJWROg3RdqmKjgCbW8@containers-us-west-121.railway.app:6705/railway
-app.config['SQLALCHEMY_DATABASE_URI']='mysql+pymysql://root:iHUPZcoYYUQ96En6chw2@containers-us-west-55.railway.app:6549/railway'
+# app.config['SQLALCHEMY_DATABASE_URI']='mysql+pymysql://root:iHUPZcoYYUQ96En6chw2@containers-us-west-55.railway.app:6549/railway'
 
 app.config['SECRET_KEY']='sqlite:///database'
 
@@ -56,7 +56,7 @@ for i in range(1000000):
 
 #define the BlogPost table
 class BlogPost(db.Model,UserMixin):
-  id = db.Column(db.Integer, primary_key=True, default=uid)
+  id = db.Column(db.Integer, primary_key=True)
   date_posted = db.Column(db.DateTime)
   content = db.Column(db.String(256))
   post_img = db.Column(db.String(100))
@@ -68,7 +68,7 @@ class BlogPost(db.Model,UserMixin):
 #define the Users table
 
 class Users(db.Model,UserMixin):
-  id = db.Column(db.Integer, primary_key=True, default=uid)
+  id = db.Column(db.Integer, primary_key=True)
   username = db.Column(db.String(250))
   email = db.Column(db.String(250))
   password = db.Column(db.String(256))
@@ -82,7 +82,7 @@ class Users(db.Model,UserMixin):
   
 # define comments table
 class Comments(db.Model, UserMixin):
-  id = db.Column(db.Integer, primary_key=True, default=uid)
+  id = db.Column(db.Integer, primary_key=True)
   username = db.Column(db.Integer, db.ForeignKey('users.id'))#represents the user
   content = db.Column(db.String(100))
   date_posted = db.Column(db.DateTime)
@@ -91,7 +91,7 @@ class Comments(db.Model, UserMixin):
 
 #define the Likes table
 class Likes(db.Model,UserMixin):
-  id = db.Column(db.Integer, primary_key=True, default=uid)
+  id = db.Column(db.Integer, primary_key=True)
   username = db.Column(db.Integer, db.ForeignKey('users.id'))#represents the user
   date_posted = db.Column(db.DateTime)
   #user can have many ppsts
